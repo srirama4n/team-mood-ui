@@ -1,0 +1,92 @@
+<h1>
+    All Surveys
+</h1>
+<div class="example-container mat-elevation-z8">
+
+    <mat-table #table matSort  [dataSource]="dataSource">
+
+        <ng-container matColumnDef="no">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> No.</mat-header-cell>
+            <mat-cell *matCellDef="let element; "> {{element.no}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="name" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Squad Name</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="createdAt">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Created On</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <!--<mat-select placeholder="{{getCreatedAt(element.surveyId) | date:'fullDate'}}">
+                    <mat-option *ngFor="let survey of getSurveys(element.name)"
+                                (click)="onCreatedAtChange(survey.id, element.surveyId, element.no, element.name)">
+                        {{ survey.createdAt | date:'fullDate' }}
+                    </mat-option>
+                </mat-select>-->
+                {{element.createdAt | date}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="expiresOn">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Expires On</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                {{element.expiresOn | date}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="surveyId" >
+            <mat-header-cell *matHeaderCellDef> Survey Link</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <a *ngIf="element.surveyLinkId" [routerLink]="['/fill/survey', element.surveyLinkId]">
+                    {{element.name + ' Survey'}}</a>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="summaryId">
+            <mat-header-cell *matHeaderCellDef> Summary Link</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <a [routerLink]="['/admin/summary', element.summaryId]">{{element.name + ' Summary'}}</a>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="renew">
+            <mat-header-cell *matHeaderCellDef>Renew</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <button mat-button *ngIf="element.surveyLinkId" matTooltip="Archive Old Survey and Renew"
+                        [disabled]="!element.enableRenew || isSubmitted"
+                        class="mat-primary mat-raised-button" (click)="renew(element)">
+                    <mat-icon>autorenew</mat-icon> Renew
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="update">
+            <mat-header-cell *matHeaderCellDef>Update/Delete</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+
+                <button [disabled]="isSubmitted" mat-button *ngIf="element.surveyLinkId" matTooltip="Update/Delete Survey"
+                        class="mat-primary mat-raised-button" (click)="update(element)">
+                    <mat-icon>update</mat-icon> Update
+                </button>
+
+                <button [disabled]="isSubmitted" mat-button *ngIf="!element.surveyLinkId" matTooltip="Delete Survey"
+                        class="mat-primary mat-raised-button" (click)="delete(element)">
+                    <mat-icon>delete</mat-icon> Delete
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator #paginator
+                   [pageSize]="5"
+                   [pageSizeOptions]="[5, 10, 20]"
+                   [showFirstLastButtons]="true">
+    </mat-paginator>
+
+</div>
+
+

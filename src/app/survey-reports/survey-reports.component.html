@@ -1,0 +1,33 @@
+<h1>
+    Survey Reports
+</h1>
+<mat-toolbar color="primary" *ngIf="show">
+    <mat-toolbar-row>
+        <mat-icon class="icon">home</mat-icon>
+        <span class="spacer"></span>
+        <a><span [routerLink]="['/admin']">Admin Dashboard</span></a>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+        <mat-icon class="icon">trending_up</mat-icon>
+        <span class="spacer"></span>
+        <a><span (click)="displayReport('GREPORT')">Trend and Gauge Report</span></a>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+        <mat-icon class="icon">view_list</mat-icon>
+        <span class="spacer"></span>
+        <a><span (click)="displayReport('DREPORT')">Data As Table Report</span></a>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+        <mat-icon class="icon">offline_bolt</mat-icon>
+        <span class="spacer"></span>
+        <a><span (click)="displayReport('TREPORT')">Temperature Report</span></a>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+        <mat-icon class="icon">face</mat-icon>
+        <span class="spacer"></span>
+        <a><span (click)="displayReport('AREPORT')">Adoption Report</span></a>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<app-survey-report *ngIf="!show" [reportDetail]="reportDetail"></app-survey-report>
+

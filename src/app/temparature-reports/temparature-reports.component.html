@@ -1,0 +1,95 @@
+<h1 style="color:#369; font-size:50px">
+    {{groupId}} Temperature report</h1>
+<div *ngIf="!surveysAvailable">
+    <h2 style="color: #369; font-size:30px">Data not available </h2>
+</div>
+<div *ngIf="surveysAvailable">
+    <div>
+        <mat-grid-list cols="4" rowHeight="400px">
+            <mat-grid-tile [colspan]="2" [rowspan]="2" [style.background]="lightpink">
+                <h1 style="color: #369; font-size:28px">
+                    Temperature Trend
+                </h1>
+                <div style="display: block; width: 550px; height: 500px;">
+                    <canvas baseChart width="55" height="55" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                        [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="2" [rowspan]="2" [style.background]="lightpink">
+                <h1 style="color: #369; font-size:28px">
+                    Word Cluster
+                </h1>
+                <mat-card>
+                    <mat-card-content>
+                        <div *ngIf="wordData" AgWordCloud #word_cloud_chart=ag-word-cloud [wordData]="wordData" [options]="options">
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <!-- <temparature-report [temparatureReport]="temparatureReport"></temparature-report> -->
+        <h1 style="color: #369; font-size:30px">
+            Data Table
+        </h1>
+        <div class="example-container mat-elevation-z8">
+
+            <mat-table #table matSort [dataSource]="dataSource">
+
+                <ng-container matColumnDef="no">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> No.</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.no}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="towerName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Platform</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.towerName}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="projectName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Team</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.projectName}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="squadName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Squad</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.squadName}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="expiresOn">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Expires On</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        {{element.expiresOn | date}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="minTemperature">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Minimum Temperature</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        {{element.minTemperature}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="maxTemperature">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Maximum Temperature</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        {{element.maxTemperature}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="avgTemperature">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Average Temperature</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        {{element.avgTemperature}}
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+
+            <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+            </mat-paginator>
+            <button mat-button class="mat-primary mat-raised-button button-position" (click)="downloadReport()">Export</button>
+        </div>
+    </div>
+</div>

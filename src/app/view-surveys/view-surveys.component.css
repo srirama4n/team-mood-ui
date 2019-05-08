@@ -1,0 +1,13 @@
+.icon {
+    padding: 0 14px;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.mat-header-cell {
+    display:flex;
+    justify-content:center;
+    padding-left: 20px;
+}

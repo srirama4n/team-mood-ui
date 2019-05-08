@@ -1,0 +1,54 @@
+<h1>
+    Surveys
+</h1>
+<div class="example-container mat-elevation-z8">
+
+    <mat-table #table matSort  [dataSource]="dataSource">
+
+        <ng-container matColumnDef="no">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> No.</mat-header-cell>
+            <mat-cell *matCellDef="let element; let i = index"> {{i+1}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="name" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Squad Name</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="createdAt">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Created On</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                {{element.createdAt | date:'fullDate'}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="expiresOn">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Expires On</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                {{element.expiresOn | date:'fullDate'}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="surveyId" >
+            <mat-header-cell *matHeaderCellDef> Survey </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <a *ngIf="element.surveyLinkId"
+                   [routerLink]="['/fill/survey', element.surveyLinkId]">{{'Fill Survey'}}</a>
+                <a *ngIf="!element.surveyLinkId"
+                   [routerLink]="['/summary', element.summaryId]">{{'View Summary'}}</a>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator #paginator
+                   [pageSize]="5"
+                   [pageSizeOptions]="[5, 10, 20]"
+                   [showFirstLastButtons]="true">
+    </mat-paginator>
+
+</div>
+
+

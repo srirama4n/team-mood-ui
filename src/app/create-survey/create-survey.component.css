@@ -1,0 +1,16 @@
+::ng-deep snack-bar-container.custom-class {
+    background: yellow;
+}
+
+::ng-deep .custom-class .mat-simple-snackbar {
+    color: green;
+}
+
+.wrap-word{
+    display:inline-block;
+    width:120px;
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+}
+

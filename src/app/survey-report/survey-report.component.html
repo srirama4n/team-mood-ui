@@ -1,0 +1,27 @@
+<div *ngIf="reportDetail?.type == 'TREPORT'">
+    <h3>Team Temperature</h3>
+    <iframe src="http://ec2-52-66-113-31.ap-south-1.compute.amazonaws.com:8083/goto/c07dbecbb6c645048abd61cb4d2da7b4?embed=true"
+            height="1020"
+            width="90%"></iframe>
+</div>
+
+<div *ngIf="reportDetail?.type == 'AREPORT'">
+    <h3>Adoption</h3>
+    <iframe src="http://ec2-52-66-113-31.ap-south-1.compute.amazonaws.com:8083/goto/148504963c4e84dc970e07642b21ba43?embed=true"
+            height="400"
+            width="90%"></iframe>
+</div>
+
+<div *ngIf="reportDetail?.type == 'DREPORT'">
+    <h3>Data Table</h3>
+    <iframe src="http://ec2-52-66-113-31.ap-south-1.compute.amazonaws.com:8083/goto/ac5413332b84b75ca0532d30290ba230?embed=true"
+            height="1020"
+            width="90%"></iframe>
+</div>
+
+<div *ngIf="reportDetail?.type == 'GREPORT'">
+    <h3>Gauge and Trend</h3>
+    <iframe src="http://ec2-52-66-113-31.ap-south-1.compute.amazonaws.com:8083/goto/f4b76897bbe39127a7a8fc3389b21db1?embed=true"
+            height="1020"
+            width="90%"></iframe>
+</div>

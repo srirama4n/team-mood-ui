@@ -1,0 +1,79 @@
+<h1>
+    Survey summary for {{surveySummary?.squad?.name}}
+</h1>
+<h4>
+    {{surveySummary?.createdAt | date:'fullDate'}} &mdash; {{surveySummary?.expiresOn | date:'fullDate'}}
+</h4>
+
+<div [hidden]="temperatures != null" class="center">
+    <mat-card>
+        This survey has no responses
+    </mat-card>
+</div>
+
+
+<div [hidden]="temperatures == null" class="center">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Max Temp : {{surveySummary?.maxTemperature}}</mat-card-title>
+            <mat-card-subtitle>Min Temp : {{surveySummary?.minTemperature}}</mat-card-subtitle>
+            <div class="response_align">
+                <div>{{responsePercentage(temperatures?.length, respondents) + '%'}} Response</div>
+                <div style="margin-top: 3px">{{temperatures?.length}} Responses</div>
+            </div>
+            <!-- <div></div> -->
+        </mat-card-header>
+        <mat-card-content>
+            Average Temp : {{surveySummary?.avgTemperature | number:'1.1-1'}}
+
+            <div class="quage_align">
+                <jqxGauge #myGauge [animationDuration]="1500" [ranges]="ranges" [cap]="cap" [border]="border" [ticksMinor]="ticksMinor" [ticksMajor]="ticksMajor"
+                    [labels]="labels" [pointer]="pointer">
+                </jqxGauge>
+                <div #gaugeValue class="gaugeValue"></div>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+
+    <h2>
+        Word Cluster
+    </h2>
+    <mat-card>
+        <mat-card-content>
+            <div *ngIf="wordData" AgWordCloud #word_cloud_chart=ag-word-cloud [wordData]="wordData" [options]="options">
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <h2>
+        Survey Results
+    </h2>
+    <mat-card fxFlex="40%">
+        <mat-table #table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="rating">
+                <mat-header-cell *matHeaderCellDef> Rating</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span [ngStyle]="{color: color(element.rating)}" (click)="changeValue()">{{element.rating}}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="comment">
+                <mat-header-cell *matHeaderCellDef> Word</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.comment}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef> Project</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <a *ngIf="linkId" [routerLink]="['/fill/survey', linkId]">{{surveySummary?.project?.name}}</a>
+                    <span *ngIf="!linkId">{{surveySummary?.project?.name}}</span>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+    </mat-card>
+</div>

@@ -1,0 +1,76 @@
+.link-btn {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    font-size: 0.8em;
+    padding: 0px;
+}
+h1 {
+    color: purple;
+  }
+.link-btn:hover {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    font-size: 0.8em;
+    padding: 0px;
+}
+
+.center {
+    max-width: 500px;
+    margin: 10px auto;
+}
+
+.gaugeValue {
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fafafa), color-stop(100%, #f3f3f3));
+    background-image: -webkit-linear-gradient(#fafafa, #f3f3f3);
+    background-image: -moz-linear-gradient(#fafafa, #f3f3f3);
+    background-image: -o-linear-gradient(#fafafa, #f3f3f3);
+    background-image: linear-gradient(#fafafa, #f3f3f3);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    position: absolute;
+    top: 340px;
+    left: 200px;
+    font-family: Sans-Serif;
+    text-align: center;
+    font-size: 17px;
+    width: 70px;
+}
+
+.quage_align{
+    padding-left: 50px
+}
+
+.response_align{
+    padding-left: 250px;
+}
+
+.icon {
+    padding: 0 14px;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.mat-header-cell {
+    display:flex;
+    justify-content:center;
+    color: blue;
+    font-size: 16px;
+}
+.button-position {
+    margin-bottom: 10px;
+}

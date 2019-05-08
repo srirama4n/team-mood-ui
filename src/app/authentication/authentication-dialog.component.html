@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<mat-dialog-content>
+    <mat-form-field>
+        <input matInput type="password" [(ngModel)]="data.password" placeholder="Password" #password="ngModel" required>
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button *ngIf="showClose" mat-button class="mat-primary mat-raised-button" (click)="onNoClick()">Close</button>
+    <button [disabled]="password.invalid" mat-button class="mat-primary mat-raised-button"
+            [mat-dialog-close]="data" cdkFocusInitial>{{data.buttonName}}
+    </button>
+</mat-dialog-actions>

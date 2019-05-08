@@ -1,0 +1,203 @@
+<h1>
+    Welcome to Team Temp!
+</h1>
+
+<mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
+
+    <mat-step [stepControl]="groupFormGroup">
+        <form [formGroup]="groupFormGroup">
+            <ng-template matStepLabel>Department/LOBT
+                <mat-chip-list *ngIf="!!nextData[0]">
+                    <mat-chip><span class="wrap-word">{{nextData[0]}}</span></mat-chip>
+                </mat-chip-list>
+            </ng-template>
+            <!-- TODO: Convert autocomplete to select  -->
+            <!--<mat-form-field>
+              <input type="text" placeholder="Select Department" aria-label="Group" matInput formControlName="groupName"
+                     [matAutocomplete]="groupAuto" (keyup)="onGroupChange(null, $event.target.value )" required>
+              <mat-autocomplete #groupAuto="matAutocomplete">
+                <mat-option *ngFor="let option of $groupOptions | async" [value]="option.name"
+                            (onSelectionChange)="onGroupChange(option.id, option.name)">
+                  {{ option.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>-->
+            <mat-form-field>
+                <mat-select placeholder="Select Department" formControlName="groupName" required>
+                    <mat-option *ngFor="let option of $groupOptions | async"
+                                (click)="onGroupChange(option.id, option.name);updateHeader(0, groupFormGroup.controls.groupName.value.name);" [value]="option">
+                        {{ option.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div>
+                <button mat-button class="mat-primary mat-raised-button" matStepperNext
+                        (click)="next('Please select Department/LOBT', groupFormGroup.controls.groupName.invalid);updateHeader(0, groupFormGroup.controls.groupName.value.name);">
+                    Next
+                </button>
+            </div>
+        </form>
+    </mat-step>
+
+
+    <mat-step [stepControl]="towerFormGroup" interacted="true">
+        <form [formGroup]="towerFormGroup">
+            <ng-template matStepLabel>Platform
+                <mat-chip-list *ngIf="!!nextData[1]">
+                    <mat-chip><span class="wrap-word">{{nextData[1]}}</span></mat-chip>
+                </mat-chip-list>
+            </ng-template>
+            <!-- TODO: Convert autocomplete to select  -->
+            <!-- <mat-form-field>
+                 <input type="text" placeholder="Fill in Tower" aria-label="Tower" matInput formControlName="towerName"
+                        (keyup)="onTowerChange(null, $event.target.value )" [matAutocomplete]="towerAuto" required>
+                 <mat-autocomplete #towerAuto="matAutocomplete">
+                     <mat-option *ngFor="let option of $towerOptions | async" [value]="option.name"
+                                 (onSelectionChange)="onTowerChange(option.id, option.name)">
+                         {{ option.name }}
+                     </mat-option>
+                 </mat-autocomplete>
+             </mat-form-field>-->
+            <mat-form-field>
+                <mat-select placeholder="Fill Platform" formControlName="towerName" required>
+                    <mat-option *ngFor="let option of $towerOptions | async"
+                                (click)="onTowerChange(option.id, option.name);updateHeader(1, towerFormGroup.controls.towerName.value.name);" [value]="option">
+                        {{ option.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious class="mat-primary mat-raised-button">Back</button>
+                <button mat-button matStepperNext class="mat-primary mat-raised-button"
+                        (click)="next('Please fill Tower', towerFormGroup.controls.towerName.invalid);updateHeader(1, towerFormGroup.controls.towerName.value.name);">
+                    Next
+                </button>
+            </div>
+        </form>
+    </mat-step>
+
+
+    <mat-step [stepControl]="projectFormGroup" interacted="true">
+        <form [formGroup]="projectFormGroup">
+            <ng-template matStepLabel>Team
+                <mat-chip-list *ngIf="!!nextData[2]">
+                    <mat-chip><span class="wrap-word">{{nextData[2]}}</span></mat-chip>
+                </mat-chip-list>
+            </ng-template>
+            <mat-form-field>
+                <input type="text" placeholder="Fill in Team" aria-label="Project" matInput
+                       formControlName="projectName"
+                       (keyup)="onProjectChange(null, $event.target.value );updateHeader(2,$event.target.value);" [matAutocomplete]="projectAuto" required>
+                <mat-autocomplete #projectAuto="matAutocomplete">
+                    <mat-option *ngFor="let option of $projectOptions | async" [value]="option.name"
+                                (onSelectionChange)="onProjectChange(option.id, option.name);updateHeader(2, projectFormGroup.controls.projectName.value);">
+                        {{ option.name }}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious class="mat-primary mat-raised-button">Back</button>
+                <button mat-button matStepperNext class="mat-primary mat-raised-button"
+                        (click)="next('Please fill Team', projectFormGroup.controls.projectName.invalid);updateHeader(2, projectFormGroup.controls.projectName.value);">
+                    Next
+                </button>
+            </div>
+        </form>
+    </mat-step>
+
+
+    <mat-step [stepControl]="squadFormGroup">
+        <form [formGroup]="squadFormGroup">
+            <ng-template matStepLabel>Squad
+                <mat-chip-list *ngIf="!!nextData[3]">
+                    <mat-chip><span class="wrap-word">{{nextData[3]}}</span></mat-chip>
+                </mat-chip-list>
+            </ng-template>
+            <mat-form-field>
+                <input type="text" placeholder="Fill in Squad" aria-label="Squad" matInput formControlName="squadName"
+                       (keyup)="onSquadChange(null, $event.target.value);updateHeader(3,$event.target.value);" [matAutocomplete]="squadAuto" required>
+                <mat-autocomplete #squadAuto="matAutocomplete">
+                    <mat-option *ngFor="let option of $squadOptions | async" [value]="option.name"
+                                (onSelectionChange)="onSquadChange(option.id, option.name);updateHeader(3, squadFormGroup.controls.squadName.value);">
+                        {{ option.name }}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious class="mat-primary mat-raised-button">Back</button>
+                <button mat-button matStepperNext class="mat-primary mat-raised-button"
+                        (click)="next('Please fill Squad', squadFormGroup.controls.squadName.invalid);updateHeader(3, squadFormGroup.controls.squadName.value);">
+                    Next
+                </button>
+            </div>
+        </form>
+    </mat-step>
+
+    <mat-step [stepControl]="expireDateFormGroup">
+        <form [formGroup]="expireDateFormGroup">
+            <ng-template matStepLabel>Sprint Expiry Date
+                <mat-chip-list *ngIf="!!nextData[4]">
+                    <mat-chip><span class="wrap-word">{{nextData[4] | date: 'dd/MM/yyyy'}}</span></mat-chip>
+                </mat-chip-list>
+            </ng-template>
+            <mat-form-field>
+                <input matInput [matDatepickerFilter]="expiryDateFilter" [matDatepicker]="dp" placeholder="Select Date"
+                       formControlName="expDate"
+                       (dateChange)="onDateChange($event)" required>
+                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                <mat-datepicker #dp disabled="false"></mat-datepicker>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious class="mat-primary mat-raised-button">Back</button>
+                <button mat-button matStepperNext class="mat-primary mat-raised-button"
+                        (click)="next('Please select expire date', expireDateFormGroup.controls.expDate.invalid);updateHeader(4, expireDateFormGroup.controls.expDate.value);">
+                    Next
+                </button>
+            </div>
+        </form>
+    </mat-step>
+
+    <mat-step [stepControl]="respondentsFormGroup">
+        <form [formGroup]="respondentsFormGroup">
+            <ng-template matStepLabel>No. of Respondents
+                <mat-chip-list *ngIf="!!nextData[5]">
+                    <mat-chip><span class="wrap-word">{{nextData[5]}}</span></mat-chip>
+                </mat-chip-list>
+            </ng-template>
+            <mat-form-field>
+                <input type="text" placeholder="Fill in no. of respondents" aria-label="Respondents" matInput formControlName="respondents"
+                       (keyup)="onRespondentsChange($event.target.value)" required>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious class="mat-primary mat-raised-button">Back</button>
+                <button mat-button matStepperNext class="mat-primary mat-raised-button"
+                        (click)="next('Please fill no. of respondents', respondentsFormGroup.controls.respondents.invalid);updateHeader(5, respondentsFormGroup.controls.respondents.value);generateURL();">Next
+                </button>
+            </div>
+        </form>
+    </mat-step>
+
+    <mat-step>
+        <div *ngIf="!showRenewMessage">
+            <ng-template matStepLabel>Done</ng-template>
+            <h4>Please use this link for Team Temp.</h4>
+            <a [routerLink]="['/fill/survey', linkId]">{{fillSurveyUrl}}</a>
+            <br>
+            <h4>Team Temp closes on : {{expiryDate | date:'fullDate'}}</h4>
+            <h4>Please preserve this password to Delete/Renew/Update this survey</h4>
+            <h3>{{surveyPassword}}</h3>
+        </div>
+        <div *ngIf="showRenewMessage">
+            <h4>Survey already exists , please renew it.</h4>
+        </div>
+        <div>
+            <button mat-button class="mat-primary mat-raised-button mt-10" (click)="stepper.reset();resetNextData();">
+                Create New Survey
+            </button>
+            <button mat-button class="mat-primary mat-raised-button mt-10" [routerLink]="['/admin/surveys']">
+                View All Surveys
+            </button>
+        </div>
+    </mat-step>
+
+</mat-horizontal-stepper>
